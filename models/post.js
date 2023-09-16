@@ -61,3 +61,6 @@ Post.init(
     modelName: "post"
   }
 );
+
+// export Post model
+module.exports = Post;
