@@ -1,5 +1,6 @@
 // import router from 'express';
 const router = require("express").Router();
+const { DataTypes } = require("sequelize");
 // import the post, user, and comment models
 const { Post, User, Comment } = require("../../models");
 // import the authorization middleware
@@ -164,7 +165,8 @@ router.put("/edit/:id", withAuth, async (req, res) => {
     await Post.update(
       {
         title: req.body.title,
-        post_text: req.body.post_text
+        post_text: req.body.post_text,
+        updated_at: DataTypes.NOW
       },
       {
         where: {
