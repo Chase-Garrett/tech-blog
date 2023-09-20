@@ -1,0 +1,14 @@
+<div class="card">
+  <!-- The contents of the post card links to the post page using the post ID -->
+  <a href="/post/{{id}}">
+    <div class="card-body">
+      <h5 class="card-title">{{title}}</h5>
+      <h6 class="card-subtitle">
+        Created by:
+        {{user.user_name}}
+        on:
+        {{format_date created_at}}</h6>
+      <p class="card-text text-center">{{post_text}}</p>
+    </div>
+  </a>
+</div>
