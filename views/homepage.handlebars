@@ -1,0 +1,12 @@
+<section class="container">
+  <div class="d-grid gap-2 col-6 mx-auto">
+      <button type="button" class="btn text-center" id="new-post">+ New Post</button>
+  </div>
+  <h3 class="All-Posts text-center">All Posts</h3>
+  <section class="column">
+    <!-- For each post, the post-details partial is used to render each post's data -->
+    {{#each posts as |post|}}
+    {{> post-details}}
+    {{/each}}
+  </section>
+</section>
