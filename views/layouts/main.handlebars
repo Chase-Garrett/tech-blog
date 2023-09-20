@@ -17,18 +17,35 @@
     <div class="column">
       <header>
         <h1>
-          <a href="/">Tech-Blog</a>
+          <a role="button"
+              class="btn text-center" id="pageTitle" href="/">Tech-Blog</a>
         </h1>
         <nav class="flex-row justify-space-around">
           <!-- Conditionally render login or logout links -->
           {{#if logged_in}}
-            <a href="/dashboard">Dashboard</a>
+            <a
+              role="button"
+              class="btn text-center"
+              id="dashboard"
+              href="/dashboard"
+            >Dashboard</a>
             |
-            <button id="logout">Logout</button>
+            <a role="button"
+              class="btn text-center" id="logout">Logout</button>
           {{else}}
-            <a href="/login">Login</a>
+            <a
+              role="button"
+              class="btn text-center"
+              id="login"
+              href="/login"
+            >Login</a>
             |
-            <a href="/signup">Signup</a>
+            <a
+              role="button"
+              class="btn text-center"
+              id="signup"
+              href="/signup"
+            >Signup</a>
           {{/if}}
         </nav>
       </header>
