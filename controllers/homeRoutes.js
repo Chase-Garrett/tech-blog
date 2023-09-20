@@ -110,5 +110,27 @@ router.get("/post/:id", withAuth, async (req, res) => {
   }
 });
 
+// get login page
+router.get("/login", (req, res) => {
+  // if the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect("/");
+    return;
+  }
+
+  res.render("login");
+});
+
+// get signup page
+router.get("/signup", (req, res) => {
+  // if the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect("/");
+    return;
+  }
+
+  res.render("signup");
+});
+
 // export the router
 module.exports = router;
