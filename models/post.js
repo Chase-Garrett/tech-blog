@@ -29,15 +29,6 @@ Post.init(
         len: [1]
       }
     },
-    // define a post_url column
-    post_url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        // this is a URL
-        isURL: true
-      }
-    },
     // define a user_id column
     user_id: {
       type: DataTypes.INTEGER,
