@@ -15,7 +15,8 @@ const hbs = exphbs.create({});
 const sess = {
   secret: process.env.SECRET,
   cookie: {
-    maxAge: 3600000,
+    // set session to expire in 24 hours
+    maxAge: 86400000,
     httpOnly: true,
     secure: false,
     sameSite: "strict"
