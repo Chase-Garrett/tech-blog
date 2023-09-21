@@ -21,7 +21,7 @@ const newFormHandler = async (event) => {
 
     // if the response is ok, redirect to the homepage, otherwise display the error
     if (response.ok) {
-      document.location.replace("/");
+      document.location.replace("/dashboard");
     } else {
       alert(response.statusText);
     }
