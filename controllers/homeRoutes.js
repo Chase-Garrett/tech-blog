@@ -24,7 +24,8 @@ router.get("/", async (req, res) => {
     // pass serialized data and session flag into template
     res.render("homepage", {
       posts,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
+      userid: req.session.user_id
     });
   } catch (err) {
     console.log(err);
@@ -36,13 +37,48 @@ router.get("/", async (req, res) => {
 router.get("/post/:id", async (req, res) => {
   try {
     // get
-    await Post.findByPk(req.params.id, {
+    const postData = await Post.findByPk(req.params.id, {
+      attributes: ["id", "title", "post_text", "created_at"],
+      include: [
+        {
+          model: User,
+          attributes: ["user_name"]
+        },
+        {
+          model: Comment,
+          attributes: ["comment_text", "post_id", "created_at"],
+          include: [
+            {
+              model: User,
+              attributes: ["user_name"]
+            }
+          ]
+        }
+      ]
+    });
+
+    const commentData = await Comment.findAll({
+      where: {
+        post_id: req.params.id
+      },
       include: [
         {
           model: User,
           attributes: ["user_name"]
         }
       ]
+    });
+
+    // serialize data
+    const post = postData.get({ plain: true });
+    const comments = commentData.map((comment) => comment.get({ plain: true }));
+    post.comments = comments;
+
+    // pass serialized data and session flag into template
+    res.render("post", {
+      post,
+      logged_in: req.session.logged_in,
+      userid: req.session.user_id
     });
   } catch (err) {
     console.log(err);
@@ -55,27 +91,6 @@ router.get("/edit/:id", withAuth, async (req, res) => {
   try {
     // get one post and join with user data
     await Post.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ["user_name"]
-        }
-      ]
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
-// get all comments for single post
-router.get("/post/:id", withAuth, async (req, res) => {
-  try {
-    // get all comments and join with user data
-    await Comment.findAll({
-      where: {
-        post_id: req.params.id
-      },
       include: [
         {
           model: User,
@@ -118,7 +133,10 @@ router.get("/newPost", withAuth, (req, res) => {
     return;
   }
 
-  res.render("newPost");
+  res.render("newPost", {
+    logged_in: req.session.logged_in,
+    userid: req.session.user_id
+  });
 });
 
 // export the router
