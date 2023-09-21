@@ -7,9 +7,6 @@ const commentFormHandler = async (event) => {
 
   const post_id = window.location.pathname.replace("/post/", "");
 
-  console.log(comment_text);
-  console.log(post_id);
-
   if (comment_text) {
     // send a post request to the api endpoint
     const response = await fetch("/api/comments", {
