@@ -86,17 +86,44 @@ router.get("/post/:id", async (req, res) => {
   }
 });
 
-// get one post to edit
+// // get one post to edit
+// router.get("/edit/:id", withAuth, async (req, res) => {
+//   try {
+//     // get one post and join with user data
+//     await Post.findByPk(req.params.id, {
+//       include: [
+//         {
+//           model: User,
+//           attributes: ["user_name"]
+//         }
+//       ]
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json(err);
+//   }
+// });
+
+// load the edit post page
 router.get("/edit/:id", withAuth, async (req, res) => {
   try {
-    // get one post and join with user data
-    await Post.findByPk(req.params.id, {
+    // get one post and JOIN with user data
+    const postData = await Post.findByPk(req.params.id, {
       include: [
         {
           model: User,
           attributes: ["user_name"]
         }
       ]
+    });
+
+    // serialize the data
+    const post = postData.get({ plain: true });
+
+    // pass serialized data and session flag into template
+    res.render("edit", {
+      post,
+      logged_in: req.session.logged_in
     });
   } catch (err) {
     console.log(err);

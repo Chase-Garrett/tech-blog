@@ -1,6 +1,5 @@
 // import router from 'express';
 const router = require("express").Router();
-const { DataTypes } = require("sequelize");
 // import the post, user, and comment models
 const { Post, User, Comment } = require("../../models");
 // import the authorization middleware
@@ -111,38 +110,6 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
-// get one post to edit
-router.get("/edit/:id", withAuth, async (req, res) => {
-  try {
-    // get one post and JOIN with user data
-    const postData = await Post.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ["user_name"]
-        }
-      ]
-    });
-
-    if (!postData) {
-      res.status(404).json({ message: "No post found with this id!" });
-      return;
-    }
-
-    // serialize the data
-    const post = postData.get({ plain: true });
-
-    // pass serialized data and session flag into template
-    res.render("edit-post", {
-      post,
-      loggedIn: req.session.loggedIn
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
 // create a post
 router.post("/", withAuth, async (req, res) => {
   try {
@@ -170,8 +137,7 @@ router.put("/edit/:id", withAuth, async (req, res) => {
     await Post.update(
       {
         title: req.body.title,
-        post_text: req.body.post_text,
-        updated_at: DataTypes.NOW
+        post_text: req.body.post_text
       },
       {
         where: {
@@ -180,7 +146,7 @@ router.put("/edit/:id", withAuth, async (req, res) => {
       }
     );
 
-    res.render("homepage", {
+    res.render("dashboard", {
       loggedIn: req.session.loggedIn
     });
   } catch (err) {
@@ -197,6 +163,9 @@ router.delete("/dashboard/:id", withAuth, async (req, res) => {
       where: {
         id: req.params.id
       }
+    });
+    res.render("dashboard", {
+      loggedIn: req.session.loggedIn
     });
   } catch (err) {
     console.log(err);
