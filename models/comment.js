@@ -17,20 +17,11 @@ Comment.init(
     },
     // define a comment_text column
     comment_text: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         // this means the comment must be at least one character long
         len: [1]
-      }
-    },
-    // define a user_id column
-    user_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        // this is a reference to the user model
-        model: "user",
-        key: "id"
       }
     },
     // define a post_id column
@@ -41,6 +32,15 @@ Comment.init(
         model: "post",
         key: "id"
       }
+    },
+    // define a user_id column
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        // this is a reference to the user model
+        model: "user",
+        key: "id"
+      }
     }
   },
   {
@@ -48,6 +48,7 @@ Comment.init(
     sequelize,
     // automatically create createdAt/updatedAt timestamp fields
     timestamps: true,
+    updatedAt: false,
     // don't pluralize name of database table
     freezeTableName: true,
     // use underscores instead of camel-casing (i.e. `comment_text` and not `commentText`)
