@@ -50,27 +50,6 @@ router.get("/post/:id", async (req, res) => {
   }
 });
 
-// get all posts for dashboard
-router.get("/dashboard", withAuth, async (req, res) => {
-  try {
-    // get all posts and join with user data
-    await Post.findAll({
-      where: {
-        user_id: req.session.user_id
-      },
-      include: [
-        {
-          model: User,
-          attributes: ["user_name"]
-        }
-      ]
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
-
 // get one post to edit
 router.get("/edit/:id", withAuth, async (req, res) => {
   try {
@@ -134,6 +113,11 @@ router.get("/signup", (req, res) => {
 
 // get new post page
 router.get("/newPost", withAuth, (req, res) => {
+  if (!req.session.logged_in) {
+    res.redirect("/login");
+    return;
+  }
+
   res.render("newPost");
 });
 
