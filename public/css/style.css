@@ -1,8 +1,18 @@
 * {
-  background-color: #58768d;
+  background-color: #2e5471;
+  color: #97aab8;
+}
+
+body {
+  background-color: #2e5471;
   color: #97aab8;
 }
 
 a {
   color: #97aab8;
+}
+
+.card {
+  color: #97aab8;
+  background-color: #2e5471;
 }
