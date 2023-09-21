@@ -1,8 +1,7 @@
 <div class="container">
-  <h3 class="my-posts text-center">My Posts</h3>
-  <section class="column">
-    <!-- For each post, the post-details partial is used to render each post's data -->
-    {{#each posts as |post|}}
-    {{> post-details}}
-    {{/each}}
+  <h3 class="my-posts text-center col">My Posts</h3>
+  <!-- For each post, the post-details partial is used to render each post's data -->
+  {{#each posts as |post|}}
+  {{> post-details}}
+  {{/each}}
 </div>

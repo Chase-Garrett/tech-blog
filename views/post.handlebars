@@ -1,0 +1,31 @@
+{{#with post as |post|}}
+  {{> post-details}}
+{{/with}}
+{{#if logged_in}}
+<div class="container-fluid col align-self-center">
+  <h2 class="text-center col align-self-center">New Comment</h2>
+  <form class="new-comment-form col">
+    <div class="input-group input-group-lg mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-lg">Comment</span>
+      <input
+        id="comment-input"
+        type="text"
+        class="form-control"
+        araia-label="Comment input"
+        aria-describedby="inputGroup-sizing-lgm"
+      />
+    </div>
+    <!-- add Comment button -->
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn text-center" type="submit">Add Comment</button>
+      </div>
+    {{/if}}
+  </form>
+</div>
+<!-- load all comments owned by the post -->
+<h2 class="text-center col align-self-center">Comments</h2>
+{{#each post.comments as |comment|}}
+{{> comment-details}}
+{{/each}}
+
+<script src="./js/newComment.js"></script>
