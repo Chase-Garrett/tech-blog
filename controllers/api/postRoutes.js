@@ -152,6 +152,11 @@ router.post("/", withAuth, async (req, res) => {
       post_text: req.body.post_text,
       user_id: req.session.user_id
     });
+
+    // redirect to the dashboard
+    res.render("dashboard", {
+      loggedIn: req.session.loggedIn
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -174,6 +179,10 @@ router.put("/edit/:id", withAuth, async (req, res) => {
         }
       }
     );
+
+    res.render("homepage", {
+      loggedIn: req.session.loggedIn
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
