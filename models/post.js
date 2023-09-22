@@ -29,14 +29,11 @@ Post.init(
         len: [1]
       }
     },
-    // define a post_url column
-    post_url: {
-      type: DataTypes.STRING,
+    // define a created_at column
+    created_at: {
+      type: DataTypes.DATE,
       allowNull: false,
-      validate: {
-        // this is a URL
-        isURL: true
-      }
+      defaultValue: DataTypes.NOW
     },
     // define a user_id column
     user_id: {
@@ -52,7 +49,7 @@ Post.init(
     // pass in our imported sequelize connection (the direct connection to our database)
     sequelize,
     // automatically create createdAt/updatedAt timestamp fields
-    timestamps: true,
+    timestamps: false,
     // don't pluralize name of database table
     freezeTableName: true,
     // use underscores instead of camel-casing (i.e. `comment_text` and not `commentText`)

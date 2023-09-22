@@ -1,0 +1,38 @@
+<div class="container-fluid col align-self-center">
+  <h2 class="text-center col align-self-center">New Post</h2>
+  <form class="update-post-form col">
+    <div class="input-group input-group-sm mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Title</span>
+      <input
+        id="title-input"
+        type="text"
+        class="form-control"
+        araia-label="Title input"
+        aria-describedby="inputGroup-sizing-sm"
+        placeholder="{{title}}"
+      />
+    </div>
+    <div class="input-group input-group-lg mb-3">
+      <span class="input-group-text" id="inputGroup-sizing-lg">Post</span>
+      <input
+        id="post-input"
+        type="text"
+        class="form-control"
+        aria-label="Post input"
+        aria-describedby="inputGroup-sizing-lgm"
+        placeholder="{{post_text}}"
+      />
+    </div>
+    <!-- add Post button -->
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn text-center" type="submit">Update Post</button>
+    </div>
+    <!-- add delete button -->
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn text-center" id="delete-post" type="click">Delete Post</button>
+    </div>
+  </form>
+</div>
+
+<script src="../js/edit.js"></script>
+<script src="../js/delete.js"></script>
